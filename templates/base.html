@@ -1,0 +1,11 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'base.css' %}" />
+<header>
+    <img class="logo" src="{% static 'images/jiller.png' %} ">
+    <nav></nav>
+</header>
+<h2>This is a base template</h2>
+<div class="container">
+    {% block workflow %}{% endblock %}
+</div>
+<footer></footer>
