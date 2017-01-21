@@ -16,19 +16,9 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-<<<<<<< HEAD
-from . import views
-
-urlpatterns = [
-    url(r'^client/', include('client.urls')),
-    url(r'^employee/', include('employee.urls')),
-    url(r'^workflow/', include('workflow.urls')),
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', views.index, name='index'),
-=======
 
 urlpatterns = [
     url(r'^', include('workflow.urls')),
     url(r'^admin/', admin.site.urls),
->>>>>>> 3712ee18b35117eab69b4709571c7170abea19b6
+
 ]
