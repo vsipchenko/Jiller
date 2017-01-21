@@ -1,6 +1,5 @@
 Django==1.10.5
-<<<<<<< HEAD
 djangorestframework==3.5.3
-pkg-resources==0.0.0
-=======
->>>>>>> 3712ee18b35117eab69b4709571c7170abea19b6
+
+
+
