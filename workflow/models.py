@@ -101,7 +101,7 @@ class IssueLog(models.Model):
 
     issue = models.ForeignKey(Issue, verbose_name=_('Issue'))
     action = models.CharField(verbose_name=_('Action'), choices=ACTION_TYPES_CHOICES, default=CREATED, max_length=255)
-    user = models.ForeignKey(Employee, verbose_name=_('Employee'))
+    employee = models.ForeignKey(Employee, verbose_name=_('Employee'))
     time = models.DateTimeField(verbose_name=_('Time'), auto_now_add=True)
     data = models.CharField(verbose_name=_('Action data'), max_length=255)
 
