@@ -90,20 +90,11 @@ class ProjectTeam(models.Model):
 
 
 class IssueLog(models.Model):
-    CREATED = 'created'
-    CHANGED = 'changed'
-    RESOLVED = 'resolved'
-    ACTION_TYPES_CHOICES = (
-        (CREATED, _('Created')),
-        (CHANGED, _('Changed')),
-        (RESOLVED, _('Resolved'))
-    )
-
     issue = models.ForeignKey(Issue, verbose_name=_('Issue'))
-    action = models.CharField(verbose_name=_('Action'), choices=ACTION_TYPES_CHOICES, default=CREATED, max_length=255)
-    employee = models.ForeignKey(Employee, verbose_name=_('Employee'))
-    time = models.DateTimeField(verbose_name=_('Time'), auto_now_add=True)
-    data = models.CharField(verbose_name=_('Action data'), max_length=255)
+    user = models.ForeignKey(Employee, verbose_name=_('Employee'))
+    date_created = models.DateTimeField(verbose_name=_('Time'), auto_now_add=True)
+    labor_costs = models.PositiveIntegerField(verbose_name=_('Labor costs'), validators=[MaxValueValidator(240)],)
+    note = models.TextField(verbose_name=_('Note'))
 
     def __str__(self):
-        return "{}:{}".format(self.issue, self.action, self.user)
+        return "{} hours. {} - {}".format(self.labor_costs, self.issue.title, self.user.get_full_name)
