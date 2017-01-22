@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from workflow.models import Project, Sprint, Employee, Issue, ProjectTeam
+
+admin.site.register(Project)
+admin.site.register(Sprint)
+admin.site.register(Employee)
+admin.site.register(Issue)
+admin.site.register(ProjectTeam)
