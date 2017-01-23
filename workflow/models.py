@@ -65,10 +65,9 @@ class Issue(models.Model):
         (RESOLVED, _('Resolved'))
     )
     root = models.ForeignKey('self', null=True, blank=True)
-    project = models.ForeignKey(Project, verbose_name=_('Project'))
     sprint = models.ForeignKey(Sprint, verbose_name=_('Sprint'))
     author = models.ForeignKey(Employee, verbose_name=_('Author'), related_name='author_user')
-    employee = models.ForeignKey(Employee, verbose_name=_('Employee'), related_name='worker_user')
+    employee = models.ForeignKey(Employee, verbose_name=_('Employee'), related_name='worker_user', null=True, blank=True)
     title = models.CharField(verbose_name=_('Title'), max_length=255)
     description = models.TextField(verbose_name=_('Description'), null=True, blank=True)
     status = models.CharField(verbose_name=_('Status'), choices=ISSUE_STATUS_CHOICES, default=NEW, null=True,
