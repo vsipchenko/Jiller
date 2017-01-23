@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MaxValueValidator
 
@@ -17,7 +18,7 @@ class Employee(AbstractUser):
         (SCRUM_MASTER, _('Scrum Master'))
     )
 
-    role = models.CharField(max_length=255,choices=EMPLOYEE_ROLES_CHOICES, verbose_name=_('Role'))
+    role = models.CharField(max_length=255, choices=EMPLOYEE_ROLES_CHOICES, verbose_name=_('Role'))
 
     def __str__(self):
         return self.username
@@ -78,6 +79,11 @@ class Issue(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if self.sprint.project != self.project:
+            return ValidationError("Sprint is incorrect")
+        super(Issue, self).save(*args, **kwargs)
 
 
 class ProjectTeam(models.Model):

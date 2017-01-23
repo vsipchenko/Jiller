@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+from workflow.models import Employee
+
+
+def employee_index_view(request):
+    employee_list = Employee.objects.all()
+    render(request, 'employee/index.html', {'employee_list': employee_list})

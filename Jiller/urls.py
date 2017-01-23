@@ -20,6 +20,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^', include('workflow.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^employee/', include('employee.urls')),
+    # url(r'^employee/', include('employee.urls')),
 
 ]
