@@ -16,7 +16,8 @@ def project_detail(request, project_id):
         project = Project.objects.get(pk=project_id)
     except Project.DoesNotExist:
         raise Http404("Question does not exist")
-    return render(request, 'workflow/project_detail.html', {'project': project})
+    return render(request, 'workflow/project_detail.html',
+                  {'project': project})
 
 
 def projtest(request):
@@ -27,7 +28,7 @@ class ProjectDetail(DetailView):
     queryset = Project.objects.all()
 
     def get_object(self):
-        object = super(ProjectDetail,self).get_object()
+        object = super(ProjectDetail, self).get_object()
         return object
 
 
