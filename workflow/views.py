@@ -2,9 +2,15 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render, redirect
+from django.http import Http404
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView
+from django.urls import reverse_lazy
 
 from workflow.forms import LoginForm, RegistrationForm
 from workflow.models import Employee
+from workflow.models import Project
+
 
 
 def index(request):
@@ -43,3 +49,42 @@ def registration_form(request):
     form = RegistrationForm()
     return render(request, 'workflow/registration.html')
 
+
+
+def project_detail(request, project_id):
+    try:
+        project = Project.objects.get(pk=project_id)
+    except Project.DoesNotExist:
+        raise Http404("Question does not exist")
+    return render(request, 'workflow/project_detail.html',
+                  {'project': project})
+
+
+def projtest(request):
+    return render(request, 'workflow/project_navbar.html')
+
+
+class ProjectDetail(DetailView):
+    queryset = Project.objects.all()
+
+    def get_object(self):
+        object = super(ProjectDetail, self).get_object()
+        return object
+
+
+class ProjectCreate(CreateView):
+    model = Project
+    fields = ['title', 'end_date']
+    template_name_suffix = '_create_form'
+
+
+class ProjectUpdate(UpdateView):
+    model = Project
+    fields = ['title', 'end_date']
+    template_name_suffix = '_update_form'
+
+
+class ProjectDelete(DeleteView):
+    model = Project
+    success_url = reverse_lazy('author-list')
+    template_name_suffix = '_delete_form'
