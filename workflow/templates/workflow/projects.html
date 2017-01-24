@@ -3,7 +3,8 @@
 {% block title %}Projects{% endblock %}
 
 {% block content %}
-  <a href="{#% url 'workflow:project_create' %#}">Create project</a>
+  {{ block.super }}
+  <a href="{% url 'workflow:project_create' %}">Create project</a>
   {% for project in object_list %}
     <table class="table table-hover">
       <thead>
@@ -16,7 +17,7 @@
       </thead>
       <tbody>
       <tr>
-        <td><a href="{% url 'workflow:projects' %}">{{ Project.title }}</a>
+        <td><a href="{% url 'workflow:projects' project.id %}">{{ Project.title }}</a>
         </td>
         <td>{{ Project.start_date|date:"d.m.Y в H:i" }}</td>
         <td>{{ Project.end_date|date:"d.m.Y в H:i" }}</td>
