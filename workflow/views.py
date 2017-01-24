@@ -1,3 +1,4 @@
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.utils.translation import ugettext_lazy as _
@@ -10,11 +11,17 @@ from django.urls import reverse_lazy
 from .forms import LoginForm, RegistrationForm
 from .models import Project, ProjectTeam, Issue, Sprint, Employee
 
-
 def index(request):
     return render(request, 'workflow/index.html')
 
 
+
+def sprints_list(request, pr_id):
+    project = Project.objects.filter(pk=pr_id)
+    sprints = Sprint.objects.filter(project=pr_id)
+
+    return render(request, 'workflow/sprints_list.html', {'project': project,
+                                                          'sprints': sprints})
 
 def create_issue(request, project_id):
     return render(request, 'workflow/create_issue.html', {'project_id': project_id})
@@ -138,3 +145,4 @@ class ProjectDelete(DeleteView):
     model = Project
     success_url = reverse_lazy('author-list')
     template_name_suffix = '_delete_form'
+
