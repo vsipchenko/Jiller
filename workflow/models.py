@@ -92,8 +92,10 @@ class Issue(models.Model):
         (RESOLVED, _('Resolved'))
     )
     root = models.ForeignKey('self', null=True, blank=True)
-    project = models.ForeignKey(Project, null=True, blank=True)
-    sprint = models.ForeignKey(Sprint, verbose_name=_('Sprint'))
+    project = models.ForeignKey(Project, verbose_name=_('Project'),
+                                null=True, blank=True)
+    sprint = models.ForeignKey(Sprint, verbose_name=_('Sprint'),
+                               null=True, blank=True)
     author = models.ForeignKey(Employee, verbose_name=_('Author'),
                                related_name='author_issue_set')
     employee = models.ForeignKey(Employee, verbose_name=_('Employee'),
@@ -114,8 +116,9 @@ class Issue(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        if self.sprint.project != self.project:
-            return ValidationError("Sprint is incorrect")
+        if self.sprint:
+            if self.sprint.project != self.project:
+                return ValidationError("Sprint is incorrect")
         super(Issue, self).save(*args, **kwargs)
 
 
