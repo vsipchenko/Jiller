@@ -27,7 +27,6 @@ def login_form(request):
     return render(request, 'workflow/login.html', {'form': form})
 
 
-
 def registration_form(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -37,9 +36,9 @@ def registration_form(request):
             last_name = form.cleaned_data['last_name']
             first_name = form.cleaned_data['first_name']
             email = form.cleaned_data['email']
-            employee = Employee.objects.create_user(username, email, password, last_name=last_name, first_name=first_name)
+            employee = Employee.objects.create_user(username, email, password, last_name=last_name,
+                                                    first_name=first_name)
             return redirect('workflow:profile')
-
-    form = RegistrationForm()
-    return render(request, 'workflow/registration.html')
-
+    else:
+        form = RegistrationForm()
+    return render(request, 'workflow/registration.html', {'form': form.as_p()})
