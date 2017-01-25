@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block content %}
+{{ block.super }}
 <div class="container">
   <form>
     <h2>Issue {{ issue.id }} | Project - {{ issue.project_id }}</h2>
