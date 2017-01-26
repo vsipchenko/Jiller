@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView, ListView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy as _
 
 from .forms import LoginForm, RegistrationForm
 from .models import Project, ProjectTeam, Issue, Sprint, Employee
@@ -107,8 +107,7 @@ def login_form(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            user = authenticate(username=form.cleaned_data['username'],
-                                password=form.cleaned_data['password'])
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             if user is not None:
                 login(request, user)
                 return redirect('workflow:profile')
@@ -129,13 +128,12 @@ def registration_form(request):
             last_name = form.cleaned_data['last_name']
             first_name = form.cleaned_data['first_name']
             email = form.cleaned_data['email']
-            employee = Employee.objects.create_user(username, email, password,
-                                                    last_name=last_name,
+            employee = Employee.objects.create_user(username, email, password, last_name=last_name,
                                                     first_name=first_name)
             return redirect('workflow:profile')
-
-    form = RegistrationForm()
-    return render(request, 'workflow/registration.html')
+    else:
+        form = RegistrationForm()
+    return render(request, 'workflow/registration.html', {'form': form.as_p()})
 
 
 def project_detail(request, project_id):
