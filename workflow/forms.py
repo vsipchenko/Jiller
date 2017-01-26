@@ -4,6 +4,12 @@ from django.forms import PasswordInput
 from django.utils.translation import ugettext_lazy as _
 
 from workflow.models import Employee
+from .models import Project
+from django.forms import ModelForm
+
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 
 class LoginForm(forms.Form):
@@ -33,3 +39,12 @@ class RegistrationForm(forms.ModelForm):
             self.add_error('password', _('Password do not equal confirm password'))
         if email != confirm_email:
             self.add_error('email', _('Email does not equal confirm email'))
+
+
+class ProjectForm(ModelForm):
+    class Meta:
+        model = Project
+        fields = ['title', 'description', 'end_date']
+        widgets = {
+            'end_date': DateInput(),
+        }
