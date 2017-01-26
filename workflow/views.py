@@ -138,27 +138,6 @@ def registration_form(request):
     return render(request, 'workflow/registration.html', {'form': form.as_p()})
 
 
-def project_detail(request, project_id):
-    try:
-        project = Project.objects.get(pk=project_id)
-    except Project.DoesNotExist:
-        raise Http404("Question does not exist")
-    return render(request, 'workflow/project_detail.html',
-                  {'project': project})
-
-
-def projtest(request):
-    return render(request, 'workflow/project_navbar.html')
-
-
-class ProjectDetail(DetailView):
-    queryset = Project.objects.all()
-
-    def get_object(self):  # TODO: object
-        object = super(ProjectDetail, self).get_object()
-        return object
-
-
 class ProjectCreate(CreateView):
     model = Project
     form_class = ProjectForm
