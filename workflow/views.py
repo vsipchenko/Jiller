@@ -171,7 +171,7 @@ class ProjectUpdate(UpdateView):
 
 class ProjectDelete(DeleteView):
     model = Project
-    success_url = reverse_lazy('author-list')
+    success_url = _('author-list')
     template_name_suffix = '_delete_form'
 
 
