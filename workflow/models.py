@@ -92,8 +92,7 @@ class Issue(models.Model):
         (RESOLVED, _('Resolved'))
     )
     root = models.ForeignKey('self', null=True, blank=True)
-    project = models.ForeignKey(Project, verbose_name=_('Project'),
-                                null=True, blank=True)
+    project = models.ForeignKey(Project, verbose_name=_('Project'))
     sprint = models.ForeignKey(Sprint, verbose_name=_('Sprint'),
                                null=True, blank=True)
     author = models.ForeignKey(Employee, verbose_name=_('Author'),
