@@ -51,6 +51,8 @@ class Project(models.Model):
                                   auto_now_add=True)
     end_date = models.DateField(verbose_name=_('End date'), null=True,
                                 blank=True)
+    is_active = models.BooleanField(verbose_name=_('Is active'), null=False,
+                                    default=True)
 
     def __str__(self):
         return self.title
