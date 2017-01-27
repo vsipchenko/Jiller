@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Active sprint' %}{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li><a href="{% url 'project:index' %}">{% trans 'Projects' %}</a></li>
+  <li><a href="{% url 'project:detail' project.id %}">{{ project.title }}</a></li>
+  <li>
+    <span>{% trans 'Active sprint' %}</span>
+  </li>
+
+{% endblock %}
+
+{% block content %}
+  {% include 'project/project_navbar.html' with sprint=True %}
+  <p>this is sprint and it has next params:</p>
+  <p>Sprint Title: {{ object.title }}</p>
+  <p>Start_date: {{ object.start_date }}</p>
+  <p>End_date: {{ object.end_date }}</p>
+
+  <div class="container panel panel-default">
+    <div class="inline panel-body"> NEW ISSUES
+      <div>
+        {% for new_issue in new_issues %}
+          <a href="{% url 'project:issue_detail' new_issue.project_id new_issue.id %}">
+            {{ new_issue.title }}</a><br>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="inline panel-body"> ISSUES IN_PROGRESS
+      <div>
+        {% for progress_issue in in_progress_issues %}
+          <a href="{% url 'project:issue_detail' new_issue.project_id new_issue.id %}">
+            {{ progress_issue.title }}</a><br>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="inline panel-body"> RESOLVED ISSUES
+      <div>
+        {% for resolved_issue in resolved_issues %}
+          <a href="{% url 'project:issue_detail' new_issue.project_id new_issue.id %}">
+            {{ resolved_issue.title }}</a><br>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

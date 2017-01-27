@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Delete project' %}{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li><a href="{% url 'project:index' %}">{% trans 'Projects' %}</a></li>
+  <li><a href="{% url 'project:detail' project.id %}">{{ project.title }}</a></li>
+{% endblock %}
+
+{% block content %}
+  {% include 'project/project_navbar.html' with detail=True %}
+  <form action="" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    <input type="submit" value="Confirm"/>
+  </form>
+{% endblock %}

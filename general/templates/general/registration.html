@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+  <div class="container">
+
+    <form action="{% url 'general:registration' %}" method="post">
+      {% csrf_token %}
+      {{ form }}
+      <div class="row">
+        <div class="col-md-3">
+          <input type="submit" value="Register">
+        </div>
+      </div>
+    </form>
+
+
+  </div>
+{% endblock %}

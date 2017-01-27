@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}{% trans 'Update project' %}{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  <li><a href="{% url 'project:index' %}">{% trans 'Projects' %}</a></li>
+  <li><a href="{% url 'project:detail' project.id %}">{{ project.title }}</a></li>
+  <li><span>{% trans 'Update' %}</span></li>
+{% endblock %}
+
+{% block content %}
+  {% include 'project/project_navbar.html' with detail=True %}
+  <h1 style="margin: 30px">Update project</h1>
+  <div style="margin: 30px">
+    <form method="POST" action="">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" class="btn btn-primary" value="Save">
+    </form>
+    <p><a class="btn btn-danger" href="{% url 'project:delete' project.id %}"> Delete </a></p>
+  </div>
+{% endblock %}

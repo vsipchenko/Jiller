@@ -1,0 +1,41 @@
+{% load i18n %}
+
+<div class="page-header"><h1>{{ project.title }}</h1></div>
+<div class="tabbable">
+  <ul class="nav nav-tabs">
+    <li {% if detail %}class="active"{% endif %}>
+      <a href="{% url 'project:detail' project.id %}">
+        {% trans 'Detail' %}
+      </a>
+    </li>
+
+    <li {% if sprint %}class="active"{% endif %}>
+      <a href="{% url 'project:sprint_detail' project.id 1 %}">
+        {% trans 'Active sprint' %}
+      </a>
+    </li>
+
+    <li {% if backlog %}class="active"{% endif %}>
+      <a href="{% url 'project:backlog' project.id %}">
+        {% trans 'Backlog' %}
+      </a>
+    </li>
+
+    <li {% if sprint_history %}class="active"{% endif %}>
+      <a href="{% url 'project:sprints_list' project.id %}">
+        {% trans 'Sprint history' %}
+      </a>
+    </li>
+
+    <li {% if team %}class="active"{% endif %}>
+      <a href="{% url 'project:team' project.id %}">
+        {% trans 'Team' %}
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+
+
+
